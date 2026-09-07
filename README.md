@@ -1,7 +1,13 @@
 # Laserity for Blender
 
+[![Latest release](https://img.shields.io/github/v/release/studiomedio/blender-laserity)](https://github.com/studiomedio/blender-laserity/releases)
+[![Blender](https://img.shields.io/badge/Blender-5.1%2B-F5792A?logo=blender&logoColor=white)](https://www.blender.org/)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 Find the flat parts in a Blender scene, arrange them on sheets, and export them
 as SVG ready for a laser cutter or engraver.
+
+![The Laserity nesting editor](docs/images/nesting-editor.png)
 
 Model your project however you like. Laserity scans the scene for objects that
 are actually cuttable from sheet material — plates, ribs, gussets, panels —
@@ -9,19 +15,41 @@ measures each one's thickness, flattens it to a 2D outline with its holes, and
 packs the results onto sheets. You tune the layout in a dedicated window, then
 write one SVG per sheet.
 
-## Installing
+## Requirements
 
-Laserity is a Blender extension (Blender 4.2 or newer).
+- **Blender 5.1** or newer.
 
-- **From this repository:** `Edit ▸ Preferences ▸ Get Extensions ▸ ▾ ▸ Install
-  from Disk…` and pick the built `laserity-*.zip`, or point it at the
-  `laserity/` directory.
-- **Building the zip yourself:** `./build.sh` — it calls Blender's own
-  extension builder and drops the archive in `dist/`.
+Pure Python — nothing is bundled, nothing is downloaded at install time, and one
+universal build covers every platform.
+
+## Installation
+
+### From the Blender Extensions repository
+
+1. In Blender: `Edit > Preferences > Get Extensions`.
+2. Search for **Laserity**.
+3. Click **Install**.
+
+### From source (development / unreleased changes)
+
+1. Build a ZIP from the `laserity/` directory (or download a release):
+
+   ```bash
+   ./build.sh
+   ```
+
+   which wraps `blender --command extension build --source-dir laserity
+   --output-dir dist`.
+
+2. In Blender: `Edit > Preferences > Get Extensions`.
+3. Click the drop-down (top right) → **Install from Disk**.
+4. Pick `dist/laserity-<version>.zip`.
 
 ## Using it
 
 Everything lives in the 3D viewport sidebar (`N`) under the **Laserity** tab.
+
+![Laserity in the 3D viewport](docs/images/viewport.png)
 
 1. **Scan Scene.** Every object that qualifies appears in the list with its
    measured thickness. Objects that do not qualify are listed under *Skipped
@@ -42,6 +70,8 @@ tumbled to an arbitrary orientation is measured just the same as an axis-aligned
 one, and modifiers are applied first — a plate with boolean holes exports with
 its holes.
 
+<img src="docs/images/sidebar-panel.png" alt="The Flat Parts panel" width="330" align="right">
+
 An object is rejected when it is thicker than *Max Thickness*, when too few of
 its vertices lie on the two outer faces (*Slab Strictness*), when it is too
 chunky to be sheet material (*Flatness Ratio*), or when it is simply too small.
@@ -51,6 +81,8 @@ Each rejection is reported with its reason; the settings live under
 Parts whose thicknesses fall within *Group Tolerance* of each other are treated
 as the same stock. Stock thicknesses never share a sheet — they are different
 pieces of material — so each gets its own run of sheets and its own colour.
+
+<br clear="right">
 
 ### Engraving
 
@@ -109,10 +141,15 @@ laserity/ui.py     panels
 ```
 
 ```bash
-python3 tests/test_core.py                                   # 51 geometry tests
-blender --background --python tests/test_blender.py          # 29 end-to-end tests
+python3 tests/test_core.py                            # 51 geometry tests
+blender --background --python tests/test_blender.py   # 29 end-to-end tests
+ruff format . && ruff check .                         # 4-space, 100 columns
 ```
+
+Release and submission steps are in [docs/publishing.md](docs/publishing.md);
+the extensions.blender.org listing text lives in
+[docs/extension.md](docs/extension.md).
 
 ## Licence
 
-GPL-3.0-or-later.
+GPL-3.0-or-later. See [LICENSE](LICENSE) and [CHANGELOG.md](CHANGELOG.md).

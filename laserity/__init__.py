@@ -20,10 +20,10 @@ _MODULES = (props, operators, editor, ui)
 
 
 def register():
-  for module in _MODULES:
-    module.register()
+    for module in _MODULES:
+        module.register()
 
 
 def unregister():
-  for module in reversed(_MODULES):
-    module.unregister()
+    for module in reversed(_MODULES):
+        module.unregister()

@@ -1,0 +1,11 @@
+# Blender add-ons follow PEP 8 / Blender's own convention: 4-space indent.
+# (The 2-space house style applies to the FastAPI projects, not here.)
+line-length = 100
+indent-width = 4
+exclude = ["dist"]
+
+[format]
+indent-style = "space"
+
+[lint]
+select = ["E", "F", "W", "I", "UP", "B"]

@@ -3,15 +3,16 @@ schema_version = "1.0.0"
 id = "laserity"
 version = "0.1.0"
 name = "Laserity"
-tagline = "Export flat parts to SVG for laser cutting"
-maintainer = "Sławomir Sobczak <studiomedio.com@gmail.com>"
+tagline = "Export flat parts to SVG for laser cutting and engraving"
+maintainer = "Sławomir Sobczak, Studio Medio <studiomedio.com@gmail.com>"
 type = "add-on"
 
+blender_version_min = "5.1.0"
+
+license = ["SPDX:GPL-3.0-or-later"]
+copyright = ["2026 Sławomir Sobczak", "2026 Studio Medio"]
 website = "https://github.com/studiomedio/blender-laserity"
 tags = ["Import-Export", "Mesh"]
-
-blender_version_min = "4.2.0"
-license = ["SPDX:GPL-3.0-or-later"]
 
 [permissions]
 files = "Write the exported SVG sheets to disk"
